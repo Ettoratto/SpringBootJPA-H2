@@ -22,11 +22,22 @@ public class MyController {
 
     @GetMapping("/{id}")
     public Persona readOne(@PathVariable("id") long id){
-        return personaRepository.getById(id);
+        return personaRepository.findById(id).get();
     }
 
     @PostMapping()
     public Persona insert(@RequestBody Persona p){
+        return personaRepository.save(p);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") long id){
+        personaRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Persona update(@PathVariable("id") long id, @RequestBody Persona p){
+        p.setId(id);
         return personaRepository.save(p);
     }
 
